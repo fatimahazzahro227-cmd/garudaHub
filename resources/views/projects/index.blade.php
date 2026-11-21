@@ -22,7 +22,7 @@
         </h2>
         <p class="muted">
             Kategori: {{ $project->kategori }} | Klien: {{ $project->client->nama }}
-            | Budget: @rupiah(project->budgetmin)-@rupiah(project->budget_max)
+            | Budget: @rupiah($project->budgetmin)-@rupiah($project->budget_max)
             | Batas: {{ $project->batas_lelang->format('Y-m-d') }} | {{ $project->bids_count }} penawaran
         </p>
         <p>{{ Str::limit($project->deskripsi, 160) }}</p>

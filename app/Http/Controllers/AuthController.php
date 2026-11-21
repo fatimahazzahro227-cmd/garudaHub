@@ -46,7 +46,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('home'))->with('ok', 'Selamat datang kembali.');
+        return redirect()->intended(route('dashboard'))->with('ok', 'Selamat datang kembali.');
     }
 
     public function logout(Request $request): RedirectResponse

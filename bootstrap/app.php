@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias(['role' => EnsureRole::class]);
         // User yang sudah login lalu membuka /login atau /register diarahkan ke beranda
-        $middleware->redirectUsersTo(fn () => route('home'));
+        $middleware->redirectUsersTo(fn () => route('dashboard'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
