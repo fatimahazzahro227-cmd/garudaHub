@@ -50,7 +50,7 @@ class ProjectController extends Controller
     {
         Gate::authorize('create', Project::class);
 
-        $project = request->user()->projects()->create(request->validated());
+        $project = $request->user()->projects()->create($request->validated());
 
         return redirect()->route('projects.show', $project)->with('ok', 'Proyek berhasil dipasang.');
     }
@@ -66,7 +66,7 @@ class ProjectController extends Controller
     {
         Gate::authorize('update', $project);
 
-        project->update(request->validated());
+        $project->update($request->validated());
 
         return redirect()->route('projects.show', $project)->with('ok', 'Proyek berhasil diperbarui.');
     }
