@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Project extends Model
 {
-
+    /** @use HasFactory<ProjectFactory> */
     use HasFactory;
 
     public const STATUS_OPEN = 'terbuka';

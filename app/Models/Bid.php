@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Bid extends Model
 {
-
+    /** @use HasFactory<BidFactory> */
     use HasFactory;
 
     // project_id, developer_id & is_winner diisi oleh controller
