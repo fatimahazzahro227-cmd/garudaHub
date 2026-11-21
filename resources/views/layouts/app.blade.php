@@ -12,6 +12,9 @@
         <a class="brand" href="{{ route('home') }}">Garuda-Hub</a>
         <a href="{{ route('home') }}">Proyek</a>
         @auth
+         @if (auth()->user()->role === 'klien')
+                <a href="{{ route('projects.create') }}">Pasang Proyek</a>
+        @endif
             <span>{{ auth()->user()->nama }} ({{ auth()->user()->role }})</span>
             <form class="inline" method="POST" action="{{ route('logout') }}">
                 @csrf

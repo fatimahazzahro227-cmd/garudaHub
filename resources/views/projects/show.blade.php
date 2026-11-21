@@ -11,6 +11,19 @@
         | Batas lelang: {{ $project->batas_lelang->format('Y-m-d') }}
     </p>
     <p>{!! nl2br(e($project->deskripsi)) !!}</p>
+        <div class="actions">
+        @can('update', $project)
+            <a class="btn sec sm" href="{{ route('projects.edit', $project) }}">Edit proyek</a>
+        @endcan
+        @can('delete', $project)
+            <form class="inline" method="POST" action="{{ route('projects.destroy', $project) }}"
+                  onsubmit="return confirm('Hapus proyek ini beserta semua penawarannya?')">
+                @csrf
+                @method('DELETE')
+                <button class="sm danger" type="submit">Hapus proyek</button>
+            </form>
+        @endcan
+    </div>
 </div>
 
 <div class="card">
