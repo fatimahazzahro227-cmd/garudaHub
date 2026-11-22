@@ -1,29 +1,33 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar')
-
 @section('content')
-<div class="card">
-    <h1>Daftar</h1>
-    <form method="POST" action="{{ route('register') }}">
+<div class="container" style="max-width: 400px; margin: 40px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+    <h2>Masuk ke Garuda-Hub</h2>
+
+    @if ($errors->any())
+        <div style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-radius: 4px;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('login') }}">
         @csrf
-        <label for="nama">Nama</label>
-        <input id="nama" name="nama" maxlength="100" required value="{{ old('nama') }}">
 
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" maxlength="100" required value="{{ old('email') }}">
+        <label for="email">Alamat Email</label>
+        <input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus style="width: 100%; padding: 8px; margin-bottom: 12px;">
 
-        <label for="password">Password (min. 6 karakter)</label>
-        <input id="password" name="password" type="password" minlength="6" maxlength="72" required autocomplete="new-password">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required style="width: 100%; padding: 8px; margin-bottom: 20px;">
 
-        <label for="role">Peran</label>
-        <select id="role" name="role">
-            @foreach ($roles as $role)
-                <option value="{{ $role }}" @selected(old('role', 'klien') === $role)>{{ ucfirst($role) }}</option>
-            @endforeach
-        </select>
-
-        <p><button type="submit">Daftar</button></p>
+        <button type="submit" style="width: 100%; padding: 10px; background: #800000; color: white; border: none; border-radius: 4px; cursor: pointer;">Masuk</button>
     </form>
+
+    <p style="text-align: center; margin-top: 15px;">
+        Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a>
+    </p>
 </div>
 @endsection

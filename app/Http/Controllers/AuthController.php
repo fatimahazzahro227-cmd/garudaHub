@@ -25,12 +25,12 @@ class AuthController extends Controller
         $user->save();
 
         return redirect()->route('login')->with('ok', 'Pendaftaran berhasil. Silakan masuk.');
-    }
+}
 
-    public function showLogin(): View
-    {
-        return view('auth.login');
-    }
+    public function showLogin()
+{
+    return view('auth.login'); 
+}
 
     public function login(Request $request): RedirectResponse
     {
