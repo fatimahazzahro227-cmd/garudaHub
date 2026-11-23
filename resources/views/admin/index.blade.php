@@ -33,7 +33,7 @@
                 <td>
                     @unless ($u->is(auth()->user()))
                         <form class="inline" method="POST" action="{{ route('admin.users.destroy', $u) }}"
-                              onsubmit="return confirm('Hapus user ini beserta proyek & penawarannya?')">
+                              data-confirm=('Hapus user ini beserta proyek & penawarannya?')">
                             @csrf
                             @method('DELETE')
                             <button class="sm danger" type="submit">Hapus</button>
@@ -58,7 +58,7 @@
                 <td>{{ $p->bids_count }}</td>
                 <td>
                     <form class="inline" method="POST" action="{{ route('projects.destroy', $p) }}"
-                          onsubmit="return confirm('Hapus proyek ini?')">
+                          data-confirm=('Hapus proyek ini?')">
                         @csrf
                         @method('DELETE')
                         <button class="sm danger" type="submit">Hapus</button>

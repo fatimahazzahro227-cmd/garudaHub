@@ -19,7 +19,7 @@
         @endcan
         @can('delete', $project)
             <form class="inline" method="POST" action="{{ route('projects.destroy', $project) }}"
-                  onsubmit="return confirm('Hapus proyek ini beserta semua penawarannya?')">
+                  data-confirm=('Hapus proyek ini beserta semua penawarannya?')">
                 @csrf
                 @method('DELETE')
                 <button class="sm danger" type="submit">Hapus proyek</button>
@@ -47,7 +47,7 @@
                     <td>
                         @can('pickWinner', $project)
                             <form method="POST" action="{{ route('bids.pick', [$project, $bid]) }}"
-                                  onsubmit="return confirm('Pilih penawaran ini sebagai pemenang?')">
+                                  data-confirm=('Pilih penawaran ini sebagai pemenang?')">
                                 @csrf
                                 <button class="sm" type="submit">Pilih pemenang</button>
                             </form>
@@ -68,7 +68,7 @@
                 <div class="actions">
                     <a class="btn sec sm" href="{{ route('bids.edit', $myBid) }}">Ubah penawaran</a>
                     <form class="inline" method="POST" action="{{ route('bids.destroy', $myBid) }}"
-                          onsubmit="return confirm('Tarik penawaran ini?')">
+                          data-confiirm=('Tarik penawaran ini?')">
                         @csrf
                         @method('DELETE')
                         <button class="sm danger" type="submit">Tarik penawaran</button>
