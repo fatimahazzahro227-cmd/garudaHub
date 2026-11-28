@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+    if (User::query()->exists()) {
+        return; 
+    }
         $pw = [
             'admin' => Hash::make('admin123'),
             'klien' => Hash::make('klien123'),
