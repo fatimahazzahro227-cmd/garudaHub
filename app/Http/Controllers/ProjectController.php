@@ -29,8 +29,10 @@ class ProjectController extends Controller
     public function show(Request $request, Project $project): View
     {
         $project->load([
-            'client',
-            'bids' => fn ($q) => $q->with('developer')->orderByDesc('is_winner')->orderBy('harga')->orderBy('id'),
+        'client',
+        'rating',
+        'bids' => fn ($q) => $q->with(['developer' => fn ($d) => $d->withAvg('ratings', 'skor')->withCount('ratings')])
+        ->orderByDesc('is_winner')->orderBy('harga')->orderBy('id'),
         ]);
 
         $user = $request->user();

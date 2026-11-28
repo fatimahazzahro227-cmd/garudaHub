@@ -27,6 +27,16 @@ class ProjectPolicy
         return $this->update($user, $project);
     }
 
+    public function rate(User $user, Project $project): bool
+    {
+    $isOwnerClient = (int) $user->id === (int) $project->client_id;
+    $isClosed = $project->status === 'ditutup';
+    $hasWinner = !is_null($project->winningBid);
+    $notYetRated = !$project->rating()->exists();
+
+    return $isOwnerClient && $isClosed && $hasWinner && $notYetRated;
+    }
+
     private function owns(User $user, Project $project): bool
     {
         return $user->role === 'klien' && $project->client_id === $user->id;

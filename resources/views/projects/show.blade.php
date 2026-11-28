@@ -19,7 +19,7 @@
         @endcan
         @can('delete', $project)
             <form class="inline" method="POST" action="{{ route('projects.destroy', $project) }}"
-                  data-confirm=('Hapus proyek ini beserta semua penawarannya?')">
+                  data-confirm="Hapus proyek ini beserta semua penawarannya?">
                 @csrf
                 @method('DELETE')
                 <button class="sm danger" type="submit">Hapus proyek</button>
@@ -39,6 +39,9 @@
                 <tr class="{{ $bid->is_winner ? 'winner' : '' }}">
                     <td>
                         {{ $bid->developer->nama }}
+                        @if ($bid->developer->ratings_count > 0)
+                            <span class="muted">★ {{ number_format($bid->developer->ratings_avg_skor, 1) }} ({{ $bid->developer->ratings_count }})</span>
+                        @endif
                         @if ($bid->is_winner) <span class="badge win">Pemenang</span> @endif
                     </td>
                     <td>@rupiah($bid->harga)</td>
@@ -47,7 +50,7 @@
                     <td>
                         @can('pickWinner', $project)
                             <form method="POST" action="{{ route('bids.pick', [$project, $bid]) }}"
-                                  data-confirm=('Pilih penawaran ini sebagai pemenang?')">
+                                 data-confirm="Pilih penawaran ini sebagai pemenang?">
                                 @csrf
                                 <button class="sm" type="submit">Pilih pemenang</button>
                             </form>
@@ -68,7 +71,7 @@
                 <div class="actions">
                     <a class="btn sec sm" href="{{ route('bids.edit', $myBid) }}">Ubah penawaran</a>
                     <form class="inline" method="POST" action="{{ route('bids.destroy', $myBid) }}"
-                          data-confiirm=('Tarik penawaran ini?')">
+                        data-confirm="Tarik penawaran ini?">
                         @csrf
                         @method('DELETE')
                         <button class="sm danger" type="submit">Tarik penawaran</button>
@@ -90,5 +93,35 @@
     @endif
 @elseif (! $user && $project->isOpen())
     <div class="card"><p><a href="{{ route('login') }}">Masuk</a> sebagai developer untuk mengajukan penawaran.</p></div>
+@endif
+
+@can('rate', $project)
+    <div class="card">
+        <h2>Beri rating untuk {{ $project->winningBid->developer->nama }}</h2>
+        <form method="POST" action="{{ route('ratings.store', $project) }}">
+            @csrf
+            <p>
+                <label>Skor
+                    <select name="skor" required>
+                        @for ($i = 5; $i >= 1; $i--)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
+                    </select>
+                </label>
+            </p>
+            <p><label>Ulasan (opsional) <textarea name="ulasan" rows="3" maxlength="500">{{ old('ulasan') }}</textarea></label></p>
+            <p><button type="submit">Kirim rating</button></p>
+        </form>
+    </div>
+@endcan
+
+@if ($project->rating)
+    <div class="card">
+        <h2>Rating</h2>
+        <p>★ {{ $project->rating->skor }}/5</p>
+        @if ($project->rating->ulasan)
+            <p>{!! nl2br(e($project->rating->ulasan)) !!}</p>
+        @endif
+    </div>
 @endif
 @endsection

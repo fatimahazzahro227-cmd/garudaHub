@@ -62,4 +62,9 @@ class Project extends Model
     {
         return $this->status === self::STATUS_OPEN && $this->batas_lelang->endOfDay()->isFuture();
     }
+
+    public function rating()
+    {
+    return $this->hasOne(Rating::class);
+    }
 }

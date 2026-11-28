@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProjectController::class, 'index'])->name('home');
@@ -23,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:klien')->group(function () {
         Route::resource('projects', ProjectController::class)->only(['create', 'store', 'edit', 'update']);
         Route::post('/projects/{project}/bids/{bid}/pick', [BidController::class, 'pick'])->name('bids.pick');
+        Route::post('/projects/{project}/rating', [RatingController::class, 'store'])->name('ratings.store');
     });
 
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
