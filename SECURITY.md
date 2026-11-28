@@ -1,13 +1,11 @@
 # Kebijakan Keamanan
 
-Garuda-Hub adalah aplikasi **pembelajaran** yang ditulis dengan praktik PHP standar: prepared statement, escaping keluaran, token CSRF, hash password, serta pengecekan peran dan kepemilikan di sisi server. Aplikasi ini tidak melalui audit keamanan menyeluruh dan **tidak boleh dipasang di server publik**.
+Garuda-Hub adalah aplikasi **pembelajaran** berbasis Laravel yang dipasang di server publik untuk tugas Operation Go-Live. Pengamanan yang diterapkan: query berparameter (Eloquent), escaping keluaran Blade, token CSRF, hash password, pengecekan peran dan kepemilikan di sisi server, rate limit pada login, serta header keamanan seperti Content-Security-Policy. Aplikasi ini belum melalui audit keamanan independen.
 
 ## Batasan yang diketahui
 
-- Database bawaan memakai `root` tanpa password (khusus lokal).
-- Tidak ada rate limit pada login atau pendaftaran.
-- Tidak ada header `X-Frame-Options` atau `Content-Security-Policy`.
 - Hanya data dummy; jangan masukkan data pribadi atau password asli.
+- Belum ada audit keamanan independen.
 
 ## Melaporkan celah
 
